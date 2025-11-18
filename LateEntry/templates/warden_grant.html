@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warden Permission Requests</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background-image: url( {% static 'background_img.jpg' %}); /* Replace with your desired background image */
+            background-size: cover;
+            background-position: center;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .heading {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .permission-request {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .permission-request p {
+            margin: 0;
+        }
+
+        .grant-button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .reject-button {
+            background-color: #ff002f;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .reject-button:hover {
+            background-color: #d6436b;
+        }
+        
+        .grant-button:hover {
+            background-color: #4399d6;
+        }
+
+        
+        .dashboard-link {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+        }
+
+        .dashboard-link button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dashboard-link button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="heading">Warden Permission Requests</h1>
+
+    {% for permission in permissions %}
+        <div class='permission-request'>
+            <p><strong>Roll Number:</strong><input readonly type="text" name="rollNumber"
+                                                   value="{{ permission.rollNumber }}">
+            </p>
+            <p><strong>Date:</strong></p><input readonly type="text" name="date" value="{{ permission.date }}">
+            <p><strong>Time:</strong></p><input readonly type="text" name="time" value="{{ permission.time }}">
+            <a href="{% url 'granted' permissionID=permission.permissionID %}"> <button class='grant-button'>Grant Permission</button></a>
+            <a href="{% url 'rejected' permissionID=permission.permissionID %}"><button class='reject-button'>Reject Permission</button></a>
+
+        </div>
+    {% endfor %}
+
+
+</div>
+<div class="dashboard-link">
+    <a href="{% url 'dashboard' %}">
+        <button>Back to Dashboard</button>
+    </a>
+</div>
+</body>
+</html>

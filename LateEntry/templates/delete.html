@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guard Delete Entry</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background-image: url({% static 'bkg3.jpg' %}); /* Replace with your desired background image */
+            background-size: cover;
+            background-position: center;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: transparent; /* Semi-transparent white background */
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .heading {
+            color: #FFFAB7;
+            font-size: 50px;
+            margin-bottom: 20px;
+            font-family: cursive;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .form-control label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: whitesmoke;
+        }
+
+        .form-control input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .form-control input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-control input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .dashboard-link {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+        }
+        .dashboard-link button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .dashboard-link button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="heading">Delete Entry</h1>
+    <form action="{% url 'delete' %}" method="post">
+        {% csrf_token %}
+        <div class="form-control">
+            <label for="rollNumber">Enter Roll Number to Delete:</label>
+            <input type="text" id="rollNumber" name="rollNumber" placeholder="Enter Roll Number" required>
+        </div>
+        <div class="form-control">
+            <label for="rollNumber">Enter Date:</label>
+            <input type="date" id="rollNumber" name="date" placeholder="Enter Date (dd/mm/yyyy)" required>
+        </div>
+        <div class="form-control">
+            <input type="submit" value="Delete Entry">
+        </div>
+    </form>
+    <div class="dashboard-link">
+        <a href="{% url 'guard' %}"><button>Back to Dashboard</button></a>
+    </div>
+</div>
+</body>
+</html>

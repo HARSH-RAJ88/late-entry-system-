@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url({% static 'new_img.jpg' %}); /* Replace 'background_image.jpg' with your image path */
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: transparent; /* Transparent background color */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .search-title {
+            font-size: 24px;
+            color: whitesmoke;
+            margin-bottom: 40px;
+            margin-top: 30px;
+            font-size: 50px;
+        }
+
+        .search-options {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .search-options label {
+            font-size: 18px;
+            color: whitesmoke;
+            margin-right: 15px;
+        }
+
+        .search-options input[type="number"],
+        .search-options input[type="date"] {
+            width: 250px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .search-options button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-options button:hover {
+            background-color: #0056b3;
+        }
+
+        .spacer {
+            margin-top: 40px;
+        }
+
+        .search-results {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 35%;
+            margin-left: 30%;
+           
+        }
+
+        .search-results h2 {
+            font-size: 20px;
+            color: black;
+            margin-bottom: 10px;
+        }
+        .dashboard-link {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+        }
+        .dashboard-link button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .dashboard-link button:hover {
+            background-color: #0056b3;
+        }
+
+        .permission-link{
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="search-title">Search</div>
+
+    <div class="search-options">
+        <form method="post" action="{% url 'viewPrevDataRoll' %}">
+            {% csrf_token %}
+        <label for="Roll_no">Roll Number:</label>
+        <input type="number" id="Roll_no" name="rollNumber" required>
+        <button>Search</button>
+    </form>
+
+        <div style="margin-left: 30px;"></div> <!-- Spacer between search options -->
+         <form method="post" action="{% url 'viewPrevDataDate' %}">
+             {% csrf_token %}
+        <label for="Date">Date:</label>
+        <input type="date" id="Date" name="date" required>
+        <button type="submit">Search</button>
+        </form>
+    </div>
+
+</div>
+    </div>
+    <div class="spacer"></div>
+    <div class="search-results">
+        <h2>Search Results</h2>
+        <!-- Space for displaying search results -->
+        {% for record in records %}
+        <table border="1" style="margin-left: 6.5%;">
+            <tr>
+              <th>Roll Number</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Reason</th>
+              <th>Penalty</th>
+              <th>Guard ID</th>
+            </tr>
+            <tr>
+              <td>{{ record.rollNumber }}</td>
+              <td>{{ record.date }}</td>
+              <td>{{ record.time }}</td>
+              <td>{{ record.reason }}</td>
+              <td>{{ record.penalty }}</td>
+              <td>{{ record.guardID }}</td>
+            </tr>
+          </table>
+          
+        {% endfor %}
+
+
+    </div>
+    <div class="dashboard-link">
+        <a href="{% url 'dashboard' %}"><button>Back to Dashboard</button></a>
+    </div>
+
+    <div class="dashboard-link permission-link">
+        <a href="{% url 'permissionView' %}"><button>View Permission List</button></a>
+    </div>
+</div>
+</body>
+</html>
