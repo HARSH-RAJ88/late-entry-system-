@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Late Entry Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url({% static 'bkg3.jpg' %});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+        .heading {
+            color: #FFFAB7;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 40px;
+        }
+        .insert-form {
+            background-color: transparent;
+            padding: 20px;
+            border-radius: 10px;
+            border: 5px solid yellowgreen;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            width: 300px;
+            text-align: center;
+            align-items: center;
+        }
+        .form-control {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-control label {
+            display: block;
+            margin-bottom: 5px;
+            color: white;
+        }
+        .form-control input[type="number"],
+        .form-control input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-control button {
+            width: 50%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-left: 15%;
+        }
+        .form-control button:hover {
+            background-color: #0056b3;
+        }
+        h2 {
+            color: antiquewhite;
+        }
+        .dashboard-link {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+        }
+        .dashboard-link button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .dashboard-link button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="heading">
+        <h1>Insert Data</h1>
+    </div>
+
+    <div class="insert-form">
+        <h2>Add new entry</h2>
+        <form action="{% url 'insert' %}" method="post">
+            {% csrf_token %}
+            <!-- <div class="form-control">
+                <label for="Guard_id">Guard Id</label>
+                 <input type="number" id="Guard_id" name="guardID" required>
+            </div> -->
+            <div class="form-control">
+                <label for="Roll_no">Roll no</label>
+                <input type="number" id="Roll_no" name="rollNumber" required>
+            </div>
+            <div class="form-control">
+                <label for="Reason">Reason</label>
+                <input type="text" id="Reason" name="reason" required>
+            </div>
+            <div class="form-control">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="dashboard-link">
+        <a href="{% url 'guard' %}"><button>Back to Dashboard</button></a>
+    </div>
+</div>
+
+</body>
+</html>
